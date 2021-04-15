@@ -1,0 +1,33 @@
+upstream django3 {
+    server unix:///home/paov/AA/academiaA/django.sock; # взаимодействие с uwsgi через Unix-сокет (мы воспользуемся этим вариантом позже)
+}
+server {
+
+    server_name academiaa.paov.ru;
+    listen [::]:8006 ssl ipv6only=on; # managed by Certbot
+    listen 8006 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/academiaa.paov.ru/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/academiaa.paov.ru/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+
+
+
+location / {
+        uwsgi_pass  django3;
+        include    /home/paov/AA/academiaA/uwsgi_params; # файл uwsgi_params, который мы только что взяли с github
+    }
+}
+server {
+
+
+        server_name academiaa.paov.ru;
+        listen 8007 default_server;
+        listen [::]:8007 default_server ipv6only=on;
+location / {
+        uwsgi_pass  django3;
+        include    /home/paov/AA/academiaA/uwsgi_params; # файл uwsgi_params, который мы только что взяли с github
+    }
+
+}
