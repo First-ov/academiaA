@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 import djangoProject1.secrets
 SECRET_KEY = djangoProject1.secrets.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -86,6 +86,7 @@ WSGI_APPLICATION = 'djangoProject1.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+#MySQL DATABASE
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
